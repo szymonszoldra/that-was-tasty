@@ -1,6 +1,7 @@
 import express from 'express';
 import path from 'path';
 import * as logger from './utils/logger';
+import * as config from './utils/config';
 
 const app = express();
 
@@ -12,8 +13,6 @@ app.get('/', (_req, res): void => {
   res.render('index');
 });
 
-const PORT = 3001;
-
-app.listen(PORT, () => {
-  logger.info(`Example app listening at http://localhost:${PORT}`);
+app.listen(config.PORT, () => {
+  logger.info(`Example app listening at http://localhost:${config.PORT}`);
 });
