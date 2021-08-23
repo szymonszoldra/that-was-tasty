@@ -1,18 +1,11 @@
-import express from 'express';
-import path from 'path';
+import http from 'http';
 import * as logger from './utils/logger';
 import * as config from './utils/config';
 
-const app = express();
+import app from './app';
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-app.use(express.static(path.join(__dirname, 'dist')));
+const server = http.createServer(app);
 
-app.get('/', (_req, res): void => {
-  res.render('index');
-});
-
-app.listen(config.PORT, () => {
-  logger.info(`Example app listening at http://localhost:${config.PORT}`);
+server.listen(config.PORT, (): void => {
+  logger.info(`Server running on port ${config.PORT}`);
 });
