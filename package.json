@@ -1,0 +1,39 @@
+{
+  "name": "that-was-tasty",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szymonszoldra/that-was-tasty.git"
+  },
+  "author": "Szymon Szołdra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/szymonszoldra/that-was-tasty/issues"
+  },
+  "homepage": "https://github.com/szymonszoldra/that-was-tasty#readme",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.3.2",
+    "concurrently": "^6.2.1",
+    "css-loader": "^6.2.0",
+    "eslint": "^7.32.0",
+    "mini-css-extract-plugin": "^2.2.0",
+    "postcss-loader": "^6.1.1",
+    "sass-loader": "^12.1.0",
+    "ts-loader": "^9.2.5",
+    "ts-node": "^10.2.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.3.5",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
+  }
+}
