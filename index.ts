@@ -1,9 +1,13 @@
 import express from 'express';
+import path from 'path';
 
 const app = express();
 
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
 app.get('/', (_req, res) => {
-  res.send('<h1>Hello world!</h1>');
+  res.render('index');
 });
 
 const PORT = 3001;
