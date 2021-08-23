@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "concurrently \"npm run watch\" \"npm run dev\" --names \"WEBPACK,TS-NODE-DEV\" --prefix name",
     "dev": "ts-node-dev index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "webpack --watch",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,7 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "mini-css-extract-plugin": "^2.2.0",
+    "node-sass": "^6.0.1",
     "postcss-loader": "^6.1.1",
     "sass-loader": "^12.1.0",
     "ts-loader": "^9.2.5",
