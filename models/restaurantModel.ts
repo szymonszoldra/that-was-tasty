@@ -43,17 +43,17 @@ const RestaurantSchema = new mongoose.Schema<RestaurantDocument>({
       type: String,
       required: 'Restaurant must have an addess',
     },
-    photo: String,
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: 'You have to be logged in',
-    },
-    meals: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Meal',
-    }],
   },
+  photo: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: 'You have to be logged in',
+  },
+  meals: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Meal',
+  }],
 });
 
 export default mongoose.model<RestaurantDocument>('Restaurant', RestaurantSchema);
