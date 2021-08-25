@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
+import slugify from 'slugify';
 
 export interface RestaurantInput {
   name: string,
-  slug: string,
   photo: string,
   tags?: Array<string>,
   user: mongoose.Types.ObjectId,
@@ -15,6 +15,7 @@ export interface RestaurantInput {
 }
 
 export interface RestaurantDocument extends RestaurantInput, mongoose.Document {
+  slug: string,
   created: Date
 }
 
@@ -54,6 +55,18 @@ const RestaurantSchema = new mongoose.Schema<RestaurantDocument>({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Meal',
   }],
+});
+
+RestaurantSchema.pre('save', function (this: RestaurantDocument, next: mongoose.HookNextFunction) {
+  if (!this.isModified('name')) {
+    return next();
+  }
+
+  this.slug = slugify(this.name, {
+    lower: true,
+  });
+
+  return next();
 });
 
 export default mongoose.model<RestaurantDocument>('Restaurant', RestaurantSchema);
