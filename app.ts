@@ -7,6 +7,7 @@ import passport from 'passport';
 import MongoStore from 'connect-mongo';
 import * as config from './utils/config';
 import * as logger from './utils/logger';
+import * as utils from './utils/utils';
 import routes from './routes';
 
 mongoose.connect(config.MONGODB_URI!, {
@@ -40,6 +41,13 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next): void => {
+  res.locals.utils = utils;
+  res.locals.user = req.user || null;
+  res.locals.path = req.path;
+  next();
+});
 
 const User = mongoose.model('User');
 passport.use(User.createStrategy());

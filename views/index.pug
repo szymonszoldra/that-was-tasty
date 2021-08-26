@@ -4,6 +4,17 @@ html
     title Hello
     link(rel='stylesheet', href='/style.css')
   body
-    h1.main Hello World!
+    nav.nav
+      ul
+        each item in utils.menu
+          li
+            a(href=item.slug)
+              i(class=`fas ${item.icon}`)
+              p #{item.caption}
 
+  h1.main Hello World!
+
+
+
+    script(src="https://kit.fontawesome.com/f0b3245525.js" crossorigin="anonymous")
     script(src="/bundle.js")
