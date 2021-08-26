@@ -1,7 +1,25 @@
 import express from 'express';
-import path from 'path';
 import mongoose from 'mongoose';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import passport from 'passport';
+import MongoStore from 'connect-mongo';
 import * as config from './utils/config';
+import * as logger from './utils/logger';
+import routes from './routes';
+
+mongoose.connect(config.MONGODB_URI!, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+})
+  .then(() => logger.info('Connected'))
+  .catch(logger.error);
+
+require('./models/mealModel');
+require('./models/userModel');
+require('./models/restaurantModel');
 
 const app = express();
 
@@ -9,23 +27,26 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(express.static(path.join(__dirname, 'dist')));
 
-mongoose.connect(config.MONGODB_URI!, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-}).then(() => {
-  console.log('Connected');
-  const temp = new mongoose.Schema({
-    name: String,
-  });
-  const Cat = mongoose.model('Cat', temp);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-  const kitty = new Cat({ name: 'Zildjian' });
-  kitty.save().then(() => console.log('meow'));
-}).catch((e) => console.log(e));
+app.use(session({
+  secret: config.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongoUrl: config.MONGODB_URI }),
+}));
 
-app.get('/', (_req, res): void => {
-  res.render('index');
-});
+app.use(passport.initialize());
+app.use(passport.session());
+
+const User = mongoose.model('User');
+passport.use(User.createStrategy());
+// @ts-ignore
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use('/', routes);
 
 export default app;
