@@ -11,11 +11,16 @@ export interface User {
 export interface UserDocument extends User, mongoose.Document {
   created: Date,
   hash: string,
-  // eslint-disable-next-line no-unused-vars
-  register(user: UserDocument, password: string): Promise<void>,
 }
 
-const UserSchema = new mongoose.Schema<UserDocument>({
+export interface UserModel extends mongoose.Model<UserDocument> {
+    // eslint-disable-next-line no-unused-vars
+  checkIfEmailInUse(email: string): Promise<boolean>,
+    // eslint-disable-next-line no-unused-vars
+  register(user: UserDocument, password: string): Promise<void>
+}
+
+const UserSchema = new mongoose.Schema<UserDocument, UserModel>({
   email: {
     type: String,
     unique: true,
@@ -38,4 +43,12 @@ UserSchema.plugin(passportLocalMongoose, {
   usernameField: 'email',
 });
 
-export default mongoose.model<UserDocument>('User', UserSchema);
+UserSchema.statics.checkIfEmailInUse = async function (
+  this: mongoose.Model<UserDocument>,
+  email: string,
+): Promise<boolean> {
+  const user = await this.findOne({ email });
+  return Boolean(user);
+};
+
+export default mongoose.model<UserDocument, UserModel>('User', UserSchema);

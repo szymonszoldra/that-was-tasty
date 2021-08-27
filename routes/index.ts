@@ -4,7 +4,11 @@ import * as userController from '../controllers/userController';
 const router = express.Router();
 
 router.get('/register', userController.displayRegisterForm);
-router.post('/register', userController.registerUser, userController.loginUser);
+router.post('/register',
+  userController.validateRegister,
+  userController.checkValidation,
+  userController.registerUser,
+  userController.loginUser);
 
 router.get('/login', userController.displayLoginForm);
 router.get('/logout', userController.logout);

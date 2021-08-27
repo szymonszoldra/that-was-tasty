@@ -27,12 +27,12 @@
 
   &__user {
     display: flex;
-    width: 150px;
+    width: 200px;
     justify-content: space-between;
     align-items: center;
     margin-right: 20px;
 
-    a {
+    a, p {
       text-decoration: none;
       color: white;
       font-size: 20px;

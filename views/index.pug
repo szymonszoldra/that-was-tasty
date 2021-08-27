@@ -14,6 +14,7 @@ html
       .nav__user
         if user
           a(href='/logout') logout
+          p hi #{user.name}
         else
           a(href='/register') register
           a(href='/login') log in
