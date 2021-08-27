@@ -11,10 +11,18 @@ html
             a(href=item.slug)
               i(class=`fas ${item.icon}`)
               p #{item.caption}
+      .nav__user
+        if user
+          a(href='/logout') logout
+        else
+          a(href='/register') register
+          a(href='/login') log in
 
-  h1.main Hello World!
 
+  .site
+    block site
 
+  pre #{user && JSON.stringify(user)}
 
-    script(src="https://kit.fontawesome.com/f0b3245525.js" crossorigin="anonymous")
-    script(src="/bundle.js")
+  script(src="https://kit.fontawesome.com/f0b3245525.js" crossorigin="anonymous")
+  script(src="/bundle.js")

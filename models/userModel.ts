@@ -10,7 +10,9 @@ export interface User {
 
 export interface UserDocument extends User, mongoose.Document {
   created: Date,
-  hash: string
+  hash: string,
+  // eslint-disable-next-line no-unused-vars
+  register(user: UserDocument, password: string): Promise<void>,
 }
 
 const UserSchema = new mongoose.Schema<UserDocument>({
