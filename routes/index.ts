@@ -16,11 +16,11 @@ router.get('/logout', userController.logout);
 router.post('/login', userController.loginUser);
 
 router.get('/', (_req, res): void => {
-  res.render('index');
+  res.status(200).render('index');
 });
 
 router.get('*', (_req, res): void => {
-  res.render('index');
+  res.status(404).render('index');
 });
 
 export default router;

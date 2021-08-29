@@ -3,7 +3,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
-import { check, validationResult, sanitizeBody } from 'express-validator';
+import { check, validationResult } from 'express-validator';
 
 // const User = mongoose.model('User');
 import User from '../models/userModel';
@@ -30,7 +30,7 @@ export const validateRegister = [
       return value;
     }
   }).withMessage('Passwords don\'t match!'),
-  sanitizeBody('*').escape(),
+  // sanitizeBody('*').escape(),
 ];
 
 export const checkValidation = (req: Request, res: Response, next: NextFunction): void => {
