@@ -3,7 +3,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import passport from 'passport';
-import { check, validationResult } from 'express-validator';
+import { body, check, validationResult } from 'express-validator';
 
 // const User = mongoose.model('User');
 import User from '../models/userModel';
@@ -17,6 +17,7 @@ export const displayLoginForm = (_req: Request, res: Response): void => {
 };
 
 export const validateRegister = [
+  body('*').escape(),
   check('email').trim().not().isEmpty().withMessage('Email is required'),
   check('email').trim().isEmail().withMessage('Invalid e-mail address!'),
   check('name').trim().not().isEmpty().withMessage('Name is required.'),
@@ -30,7 +31,6 @@ export const validateRegister = [
       return value;
     }
   }).withMessage('Passwords don\'t match!'),
-  // sanitizeBody('*').escape(),
 ];
 
 export const checkValidation = (req: Request, res: Response, next: NextFunction): void => {
