@@ -32,7 +32,7 @@ module.exports = {
   output: {
     publicPath: 'dist',
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'static', 'dist'),
   },
   plugins: [
     new MiniCssExtractPlugin({

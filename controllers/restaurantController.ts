@@ -30,7 +30,7 @@ export const resize = async (req: Request, res: Response, next: NextFunction): P
   req.body.photo = `${uuidv4()}.${extension}`;
   const photo = await Jimp.read(req.file.buffer);
   photo.resize(800, Jimp.AUTO);
-  photo.write(`./dist/photos/${req.body.photo}`);
+  photo.write(`./static/photos/${req.body.photo}`);
   next();
 };
 
