@@ -36,12 +36,10 @@ export const validateRegister = [
 export const checkValidation = (req: Request, res: Response, next: NextFunction): void => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    console.log(errors.mapped());
-    res.status(422).json({
-      success: false,
-      data: req.body,
-      errors: errors.mapped(),
+    errors.array().forEach((err) => {
+      req.flash('error', err.msg);
     });
+    res.redirect('back');
     return;
   }
   next();
@@ -55,6 +53,7 @@ export const registerUser = async (
   const emailTaken = await User.checkIfEmailInUse(email);
 
   if (emailTaken) {
+    req.flash('error', 'Email taken!');
     res.redirect('back');
     return;
   }
@@ -65,10 +64,13 @@ export const registerUser = async (
 
 export const loginUser = passport.authenticate('local', {
   failureRedirect: '/login',
+  failureFlash: 'Could not log in! Check credentials!',
   successRedirect: '/',
+  successFlash: 'Successfully logged in!',
 });
 
 export const logout = (req: Request, res: Response): void => {
   req.logout();
+  req.flash('succes', 'Logged out!');
   res.redirect('/');
 };

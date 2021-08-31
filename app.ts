@@ -4,6 +4,7 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import passport from 'passport';
+import flash from 'connect-flash';
 import MongoStore from 'connect-mongo';
 import * as config from './utils/config';
 import * as logger from './utils/logger';
@@ -42,11 +43,13 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.use((req, res, next): void => {
   res.locals.utils = utils;
   res.locals.user = req.user || null;
   res.locals.path = req.path;
+  res.locals.flashes = req.flash();
   next();
 });
 
