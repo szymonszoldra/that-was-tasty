@@ -4,20 +4,33 @@ import * as restaurantController from '../controllers/restaurantController';
 
 const router = express.Router();
 
-router.get('/register', userController.displayRegisterForm);
+router.get('/register',
+  userController.checkNotAuth,
+  userController.displayRegisterForm);
+
 router.post('/register',
+  userController.checkNotAuth,
   userController.validateRegister,
   userController.checkValidation,
   userController.registerUser,
   userController.loginUser);
 
-router.get('/login', userController.displayLoginForm);
+router.get('/login',
+  userController.checkNotAuth,
+  userController.displayLoginForm);
+
+router.post('/login',
+  userController.checkNotAuth,
+  userController.loginUser);
+
 router.get('/logout', userController.logout);
 
-router.post('/login', userController.loginUser);
+router.get('/add',
+  userController.checkAuth,
+  restaurantController.displayRestaurantForm);
 
-router.get('/add', restaurantController.displayRestaurantForm);
 router.post('/add',
+  userController.checkAuth,
   restaurantController.validateRestaurant,
   restaurantController.checkValidation,
   restaurantController.upload,

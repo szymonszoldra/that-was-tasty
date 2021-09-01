@@ -71,6 +71,24 @@ export const loginUser = passport.authenticate('local', {
 
 export const logout = (req: Request, res: Response): void => {
   req.logout();
-  req.flash('succes', 'Logged out!');
+  req.flash('success', 'Logged out!');
   res.redirect('/');
+};
+
+export const checkNotAuth = (req: Request, res: Response, next: NextFunction): void => {
+  if (!req.user) {
+    next();
+    return;
+  }
+  req.flash('error', 'Can\'t perform this action while logged in');
+  res.redirect('back');
+};
+
+export const checkAuth = (req: Request, res: Response, next: NextFunction): void => {
+  if (req.user) {
+    next();
+    return;
+  }
+  req.flash('error', 'You have to be logged in to perform this action!');
+  res.redirect('/login');
 };
