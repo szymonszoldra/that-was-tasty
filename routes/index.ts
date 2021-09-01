@@ -1,6 +1,7 @@
 import express from 'express';
 import * as userController from '../controllers/userController';
 import * as restaurantController from '../controllers/restaurantController';
+import * as photoController from '../controllers/photoController';
 
 const router = express.Router();
 
@@ -33,8 +34,8 @@ router.post('/add',
   userController.checkAuth,
   restaurantController.validateRestaurant,
   restaurantController.checkValidation,
-  restaurantController.upload,
-  restaurantController.resize,
+  photoController.upload,
+  photoController.resize,
   restaurantController.addRestaurant);
 
 router.get('/', (_req, res): void => {
