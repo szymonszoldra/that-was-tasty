@@ -10,7 +10,7 @@ export interface User {
 
 export interface UserDocument extends User, mongoose.Document {
   created: Date,
-  hash: string,
+  _id: mongoose.Types.ObjectId,
 }
 
 export interface UserModel extends mongoose.Model<UserDocument> {

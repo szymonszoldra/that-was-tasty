@@ -72,7 +72,7 @@ export const loginUser = passport.authenticate('local', {
 export const logout = (req: Request, res: Response): void => {
   req.logout();
   req.flash('success', 'Logged out!');
-  res.redirect('/');
+  res.redirect('/login');
 };
 
 export const checkNotAuth = (req: Request, res: Response, next: NextFunction): void => {

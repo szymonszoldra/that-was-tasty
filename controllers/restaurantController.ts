@@ -4,6 +4,8 @@
 import { Request, Response, NextFunction } from 'express';
 import { body, validationResult } from 'express-validator';
 
+import Restaurant from '../models/restaurantModel';
+
 export const displayRestaurantForm = (_req: Request, res: Response): void => {
   res.render('restaurantForm');
 };
@@ -24,8 +26,29 @@ export const checkValidation = (req: Request, res: Response, next: NextFunction)
   next();
 };
 
-export const addRestaurant = (req: Request, res: Response): void => {
+export const addRestaurant = async (req: Request, res: Response): Promise<void> => {
   console.log(req.body);
+  try {
+    const restaurant = new Restaurant({
+      ...req.body,
+      // @ts-ignore
+      user: req.user._id,
+    });
+    await restaurant.save();
+  } catch (e) {
+    console.log('ERROR', e);
+  }
+
   req.flash('success', 'Restaurant added!');
   res.redirect('/');
+};
+
+export const showRestaurants = async (req: Request, res: Response): Promise<void> => {
+  try {
+    // @ts-ignore
+    const restaurants = await Restaurant.find({ user: req.user!._id });
+    res.render('restaurants', { restaurants });
+  } catch (e) {
+    console.log(e);
+  }
 };

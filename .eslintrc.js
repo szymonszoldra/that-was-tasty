@@ -21,5 +21,6 @@ module.exports = {
     'import/prefer-default-export': 0,
     'no-console': 0,
     'func-names': 0,
+    'no-underscore-dangle': 0,
   },
 };

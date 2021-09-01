@@ -36,4 +36,5 @@ html
   pre #{user && JSON.stringify(user)}
 
   script(src="https://kit.fontawesome.com/f0b3245525.js" crossorigin="anonymous")
+  script(src=`https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_KEY}&libraries=places`)
   script(src="/dist/bundle.js")

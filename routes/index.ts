@@ -38,9 +38,8 @@ router.post('/add',
   photoController.resize,
   restaurantController.addRestaurant);
 
-router.get('/', (_req, res): void => {
-  res.status(200).render('index');
-});
+router.get('/', userController.checkAuth, restaurantController.showRestaurants);
+router.get('/restaurants', userController.checkAuth, restaurantController.showRestaurants);
 
 router.get('*', (_req, res): void => {
   res.status(404).render('index');
