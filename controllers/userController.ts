@@ -89,6 +89,11 @@ export const checkAuth = (req: Request, res: Response, next: NextFunction): void
     next();
     return;
   }
-  req.flash('error', 'You have to be logged in to perform this action!');
+
+  if (req.path === '/') {
+    req.flash('info', 'This application is based on user accounts. You must log in or create an account.');
+  } else {
+    req.flash('error', 'You have to be logged in to perform this action!');
+  }
   res.redirect('/login');
 };

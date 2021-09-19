@@ -1,7 +1,14 @@
+header {
+  background: #1a2a6c;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #fdbb2d, #b21f1f, #1a2a6c);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #fdbb2d, #b21f1f, #1a2a6c); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
 .nav {
   display: flex;
-  width: 100vw;
-  background-color: royalblue;
+  width: 1920px;
+  margin: 0 auto;
+
   padding: 15px;
 
   ul {
@@ -27,7 +34,7 @@
 
   &__user {
     display: flex;
-    width: 200px;
+    width: 400px;
     justify-content: space-between;
     align-items: center;
     margin-right: 20px;

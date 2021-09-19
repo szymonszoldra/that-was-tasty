@@ -4,20 +4,21 @@ html
     title Hello
     link(rel='stylesheet', href='/dist/style.css')
   body
-    nav.nav
-      ul
-        each item in utils.menu
-          li
-            a(href=item.slug)
-              i(class=`fas ${item.icon}`)
-              p #{item.caption}
-      .nav__user
-        if user
-          a(href='/logout') log out
-          p hi #{user.name}
-        else
-          a(href='/register') register
-          a(href='/login') log in
+    header
+      nav.nav
+        ul
+          each item in utils.menu
+            li
+              a(href=item.slug)
+                i(class=`fas ${item.icon}`)
+                p #{item.caption}
+        .nav__user
+          if user
+            a(href='/logout') log out
+            p hi #{user.name}
+          else
+            a(href='/register') register
+            a(href='/login') log in
 
     block messages
     if locals.flashes

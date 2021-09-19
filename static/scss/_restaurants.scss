@@ -1,0 +1,37 @@
+.restaurants {
+  display: flex;
+  margin: 20px 40px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  a {
+    text-decoration: none;
+    flex-wrap: wrap;
+    // flex-basis: 30%;
+  }
+  .restaurant__card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0.5rem 0.5rem 0.5rem rgba(46, 41, 78, 0.55);
+    border-radius: 3%;
+    margin: 30px 100px;
+
+    .photo-container {
+      height: 460px;
+      width: 300px;
+
+      img {
+        height: 500px;
+        width: 300px;
+        object-fit: cover;
+      }
+    }
+
+    h2 {
+      color: white;
+      font-size: 30px;
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      align-self: center;
+    }
+  }
+}
