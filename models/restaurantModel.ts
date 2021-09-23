@@ -10,13 +10,14 @@ export interface RestaurantInput {
   meals?: Array<mongoose.Types.ObjectId>,
   location: {
     type: string,
-    coordinates: [number, number],
+    coordinates: number[],
     address: string
   }
 }
 
 export interface RestaurantDocument extends RestaurantInput, mongoose.Document {
   slug: string,
+  map: string,
   created: Date
 }
 
@@ -33,6 +34,7 @@ const RestaurantSchema = new mongoose.Schema<RestaurantDocument>({
     type: Date,
     default: Date.now,
   },
+  map: String,
   location: {
     type: {
       type: String,

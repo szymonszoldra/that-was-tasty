@@ -1,10 +1,13 @@
 /* eslint-disable newline-per-chained-call */
 // For adding restaurant validation
 
-import { Request, Response, NextFunction } from 'express';
+import {
+  Request, Response, NextFunction,
+} from 'express';
 import { body, validationResult } from 'express-validator';
 
 import Restaurant from '../models/restaurantModel';
+import { CustomRequest } from '../utils/types';
 
 export const displayRestaurantForm = (_req: Request, res: Response): void => {
   res.render('restaurantForm');
@@ -53,13 +56,27 @@ export const showRestaurants = async (req: Request, res: Response): Promise<void
   }
 };
 
-export const showSingleRestaurant = async (req: Request, res: Response): Promise<void> => {
+export const findSingleRestaurant = async (
+  req: CustomRequest, res: Response, next: NextFunction,
+): Promise<void> => {
   try {
     const { slug } = req.params;
     // @ts-ignore
     const restaurant = await Restaurant.findOne({ user: req.user!._id, slug });
     console.log(restaurant);
-    res.render('singleRestaurant', { restaurant });
+    if (!restaurant) throw new Error();
+
+    req.restaurant = restaurant;
+    next();
+  } catch (e) {
+    req.flash('error', '404 - Restaurant not found');
+    res.redirect('back');
+  }
+};
+
+export const showSingleRestaurant = async (req: CustomRequest, res: Response): Promise<void> => {
+  try {
+    res.render('singleRestaurant', { restaurant: req.restaurant });
   } catch (e) {
     console.log(e);
   }
