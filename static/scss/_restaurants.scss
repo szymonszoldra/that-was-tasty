@@ -1,11 +1,28 @@
-.restaurants {
+.restaurants, .restaurant {
   display: flex;
   margin: 20px 40px;
   justify-content: space-around;
   flex-wrap: wrap;
+
+  .restaurant__header {
+    display: flex;
+
+    .mapimage {
+      height: 100%;
+    }
+
+    .container {
+      display: flex;
+      align-items: flex-end;
+
+      .restaurant__card {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
   a {
     text-decoration: none;
-    flex-wrap: wrap;
+    flex-wrap: wrap
     // flex-basis: 30%;
   }
   .restaurant__card {

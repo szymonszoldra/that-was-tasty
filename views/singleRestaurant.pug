@@ -1,0 +1,13 @@
+extends index
+
+block site
+  .restaurant
+    - const [lng, lat] = restaurant.location.coordinates
+    .restaurant__header
+      .container
+        .restaurant__card
+          .photo-container
+            img(src=`/photos/${restaurant.photo}`)
+          h2=restaurant.name
+      img.mapimage(src=`${utils.staticMap(lng, lat)}`, alt="")
+  pre #{JSON.stringify(restaurant, null, 2)}

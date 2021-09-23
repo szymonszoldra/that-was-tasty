@@ -5,3 +5,5 @@ export const menu = [
   { slug: '/add', caption: 'Add', icon: 'fa-plus' },
   { slug: '/map', caption: 'Map', icon: 'fa-map-marker-alt' },
 ];
+
+export const staticMap = (lng: number, lat: number): string => `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=14&size=1280x300&key=${process.env.GOOGLE_KEY}&markers=size:tiny%7C${lat},${lng}&scale=2`;

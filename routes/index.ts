@@ -41,6 +41,8 @@ router.post('/add',
 router.get('/', userController.checkAuth, restaurantController.showRestaurants);
 router.get('/restaurants', userController.checkAuth, restaurantController.showRestaurants);
 
+router.get('/restaurant/:slug', userController.checkAuth, restaurantController.showSingleRestaurant);
+
 router.get('*', (_req, res): void => {
   res.status(404).render('index');
 });

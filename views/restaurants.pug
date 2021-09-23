@@ -4,19 +4,19 @@ block site
   .restaurants
     //-  temp for development
     each restaurant in restaurants
-      a(href=`/${user.id}/${restaurant.slug}`)
+      a(href=`/restaurant/${restaurant.slug}`)
         .restaurant__card()
           .photo-container
             img(src=`photos/${restaurant.photo}`)
           h2=restaurant.name
     each restaurant in restaurants
-      a(href=`/${user.id}/${restaurant.slug}`)
+      a(href=`/restaurant/${restaurant.slug}`)
         .restaurant__card()
           .photo-container
             img(src=`photos/${restaurant.photo}`)
           h2=restaurant.name
     each restaurant in restaurants
-      a(href=`/${user.id}/${restaurant.slug}`)
+      a(href=`/restaurant/${restaurant.slug}`)
         .restaurant__card()
           .photo-container
             img(src=`photos/${restaurant.photo}`)

@@ -52,3 +52,15 @@ export const showRestaurants = async (req: Request, res: Response): Promise<void
     console.log(e);
   }
 };
+
+export const showSingleRestaurant = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { slug } = req.params;
+    // @ts-ignore
+    const restaurant = await Restaurant.findOne({ user: req.user!._id, slug });
+    console.log(restaurant);
+    res.render('singleRestaurant', { restaurant });
+  } catch (e) {
+    console.log(e);
+  }
+};
