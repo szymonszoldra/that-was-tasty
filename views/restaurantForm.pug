@@ -1,29 +1,31 @@
 extends index
 
 block site
-  form(action="/add" method="POST" enctype="multipart/form-data" class="form")
+  form(action=(restaurant ? `/edit/${restaurant._id}` : '/add') method="POST" enctype="multipart/form-data" class="form")
     .form__group
       label(for="name") Name
-      input(type="text", name="name")
+      input(type="text", name="name" value=(restaurant && restaurant.name))
     .form__group
       label(for="photo") Photo
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
     .form__group
       label(for="restaurant") Restaurant
-      input(type="text" id="restaurant" name="location[restaurant]")
+      input(type="text" id="restaurant" name="location[restaurant]"  )
     .form__group
       label(for="address") Address
-      input(type="text" id="address" name="location[address]")
+      input(type="text" id="address" name="location[address]" value=(restaurant && restaurant.location.address))
     .form__group
       label(for="lng") Address Lng
-      input(type="text" id="lng" name="location[coordinates][0]")
+      input(type="text" id="lng" name="location[coordinates][0]" value=(restaurant && restaurant.location.coordinates[0]))
     .form__group
       label(for="lat") Address Lat
-      input(type="text" id="lat" name="location[coordinates][1]")
+      input(type="text" id="lat" name="location[coordinates][1]" value=(restaurant && restaurant.location.coordinates[1]))
     - const tags = ['Fast food', 'Sushi', 'Cafe', 'Cheap', 'Exclusive', 'Pizza', 'Oriental', 'Other']
     ul.tags
+      - const picked = restaurant ? restaurant.tags : []
       each tag in tags
         .tag
-          input(type="checkbox" id=tag value=tag name="tags")
+          input(type="checkbox" id=tag value=tag name="tags" checked=(picked.includes(tag)))
           label(for=tag) #{tag}
     input(type="submit" value="Save" class="button")
+    pre=JSON.stringify(restaurant, null, 2)

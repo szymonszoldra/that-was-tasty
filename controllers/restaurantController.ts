@@ -4,9 +4,10 @@
 import {
   Request, Response, NextFunction,
 } from 'express';
+import * as fs from 'fs';
 import { body, validationResult } from 'express-validator';
 
-import Restaurant from '../models/restaurantModel';
+import Restaurant, { RestaurantDocument } from '../models/restaurantModel';
 import { CustomRequest } from '../utils/types';
 
 export const displayRestaurantForm = (_req: Request, res: Response): void => {
@@ -79,5 +80,56 @@ export const showSingleRestaurant = async (req: CustomRequest, res: Response): P
     res.render('singleRestaurant', { restaurant: req.restaurant });
   } catch (e) {
     console.log(e);
+  }
+};
+
+export const checkIfRestaurantExists = async (
+  req: CustomRequest, res: Response, next: NextFunction,
+): Promise<void> => {
+  const { id } = req.params;
+  try {
+    const restaurant = await Restaurant.findById(id);
+
+    if (!restaurant) {
+      req.flash('error', 'No such restaurant');
+      res.redirect('back');
+    }
+
+    req.restaurant = restaurant;
+    next();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const displayRestaurantEditForm = (req: CustomRequest, res: Response): void => {
+  res.render('restaurantForm', { restaurant: req.restaurant });
+};
+
+export const editRestaurant = async (req: CustomRequest, res: Response): Promise<void> => {
+  req.body.location.type = 'Point';
+  console.log(req.body);
+
+  if (req.body.photo) {
+    try {
+      fs.unlinkSync(`./static/photos/${req.body.photo}`);
+    } catch (error) {
+      console.error(`Error while deleting the file ${req.body.photo}`);
+    }
+  }
+
+  try {
+    const updatedRestaurant = await Restaurant.findOneAndUpdate(
+      { _id: req.restaurant!.id },
+      req.body, {
+        new: true,
+        runValidators: true,
+      },
+    ) as RestaurantDocument;
+    res.redirect(`/restaurant/${updatedRestaurant.slug}`);
+  } catch (error) {
+    console.log(error);
+    req.flash('error', 'Error while updating restaurant');
+    res.redirect('back');
   }
 };

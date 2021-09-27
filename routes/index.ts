@@ -47,6 +47,18 @@ router.get('/restaurant/:slug',
   photoController.getStaticMap,
   restaurantController.showSingleRestaurant);
 
+router.get('/edit/:id',
+  userController.checkAuth,
+  restaurantController.checkIfRestaurantExists,
+  restaurantController.displayRestaurantEditForm);
+
+router.post('/edit/:id',
+  userController.checkAuth,
+  restaurantController.checkIfRestaurantExists,
+  photoController.upload,
+  photoController.resize,
+  restaurantController.editRestaurant);
+
 router.get('*', (_req, res): void => {
   res.status(404).render('index');
 });

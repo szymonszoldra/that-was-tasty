@@ -1,3 +1,4 @@
+/* eslint-disable prefer-arrow-callback */
 import mongoose from 'mongoose';
 import slugify from 'slugify';
 
@@ -59,7 +60,7 @@ const RestaurantSchema = new mongoose.Schema<RestaurantDocument>({
   }],
 });
 
-RestaurantSchema.pre('save', function (this: RestaurantDocument, next: mongoose.HookNextFunction) {
+RestaurantSchema.pre<RestaurantDocument>('save', function (this: RestaurantDocument, next: mongoose.HookNextFunction): void {
   if (!this.isModified('name')) {
     return next();
   }
@@ -68,6 +69,19 @@ RestaurantSchema.pre('save', function (this: RestaurantDocument, next: mongoose.
     lower: true,
   });
 
+  return next();
+});
+
+// I don't know why but TS complains about findOneAndUpdate and it doesn't care it is valid
+// @ts-ignore
+RestaurantSchema.pre('findOneAndUpdate', async function (next: mongoose.HookNextFunction): Promise<void> {
+  const docToUpdate = await this.model.findOne(this.getQuery());
+
+  docToUpdate.slug = slugify(docToUpdate.name, {
+    lower: true,
+  });
+
+  await docToUpdate.save();
   return next();
 });
 
