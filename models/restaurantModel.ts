@@ -4,7 +4,6 @@ import slugify from 'slugify';
 export interface RestaurantInput {
   name: string,
   photo: string,
-  description: string,
   tags?: Array<string>,
   user: mongoose.Types.ObjectId,
   meals?: Array<mongoose.Types.ObjectId>,
@@ -27,7 +26,6 @@ const RestaurantSchema = new mongoose.Schema<RestaurantDocument>({
     trim: true,
     required: 'Restaurant must have a name',
   },
-  description: String,
   slug: String,
   tags: [String],
   created: {

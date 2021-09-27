@@ -44,11 +44,68 @@
       }
     }
 
-    h2 {
-      color: white;
-      font-size: 30px;
-      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-      align-self: center;
+    .single-container {
+      height: 550px;
+      width: 400px;
+
+      .single-photo {
+        height: 550px;
+        width: 400px;
+      }
     }
   }
+}
+
+.restaurant {
+  flex-direction: column;
+
+  ul {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .restaurant__menu {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .restaurant__tags {
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+      color: white;
+
+      ul {
+        text-decoration: none;
+      }
+
+      li {
+        font-size: 20px;
+        margin-right: 10px;
+        display: flex;
+        i {
+          margin-right: 3px;
+        }
+      }
+    }
+
+    .menu__options {
+      justify-content: flex-end;
+  
+      li {
+        display: flex;
+        color: white;
+        font-size: 40px;
+        margin-left: 30px;
+  
+        a {
+          text-decoration: none;
+          color: white;
+          display: flex;
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        }
+      }
+    }
+  
+  }
+ 
 }

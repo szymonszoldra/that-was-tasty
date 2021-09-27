@@ -5,8 +5,28 @@ block site
     .restaurant__header
       .container
         .restaurant__card
-          .photo-container
-            img(src=`/photos/${restaurant.photo}`)
-          h2=restaurant.name
+          .photo-container.single-container
+            img(src=`/photos/${restaurant.photo}` class='single-photo')
+          //- h2=restaurant.name
       img.mapimage(src=`/maps/${restaurant.map}`, alt="")
+    .restaurant__title
+      h1.outlined.big=restaurant.name
+    .restaurant__container
+      .restaurant__menu
+        .restaurant__tags
+          ul
+            each tag in restaurant.tags
+              li
+                i(class='fas fa-tags')
+                p=tag
+        ul.menu__options
+          each item in utils.restaurantOptions
+            li 
+              a(href=`/${item.action}/${restaurant._id}`) 
+                i(class=`fas ${item.icon}`)
+      .restaurant__meals
+        ul
+          each meal in restaurant.meals
+            pre #{JSON.stringify(meal, null, 2)}
+    
   pre #{JSON.stringify(restaurant, null, 2)}

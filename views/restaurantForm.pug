@@ -6,9 +6,6 @@ block site
       label(for="name") Name
       input(type="text", name="name")
     .form__group
-      label(for="description") Description
-      input(type="text", name="description")
-    .form__group
       label(for="photo") Photo
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
     .form__group
@@ -23,10 +20,10 @@ block site
     .form__group
       label(for="lat") Address Lat
       input(type="text" id="lat" name="location[coordinates][1]")
-    - const choices = ['Fast food', 'Sushi', 'Cafe', 'Cheap', 'Exclusive', 'Pizza']
+    - const tags = ['Fast food', 'Sushi', 'Cafe', 'Cheap', 'Exclusive', 'Pizza', 'Oriental', 'Other']
     ul.tags
-      each choice in choices
+      each tag in tags
         .tag
-          input(type="checkbox" id=choice value=choice name="tags")
-          label(for=choice) #{choice}
+          input(type="checkbox" id=tag value=tag name="tags")
+          label(for=tag) #{tag}
     input(type="submit" value="Save" class="button")
