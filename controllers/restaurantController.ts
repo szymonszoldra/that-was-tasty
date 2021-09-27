@@ -112,9 +112,9 @@ export const editRestaurant = async (req: CustomRequest, res: Response): Promise
 
   if (req.body.photo) {
     try {
-      fs.unlinkSync(`./static/photos/${req.body.photo}`);
+      fs.unlinkSync(`./static/photos/${req.restaurant!.photo}`);
     } catch (error) {
-      console.error(`Error while deleting the file ${req.body.photo}`);
+      console.error(`Error while deleting the file ${req.restaurant!.photo}`);
     }
   }
 
