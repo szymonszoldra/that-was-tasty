@@ -5,17 +5,39 @@ import {
   Request, Response, NextFunction,
 } from 'express';
 import * as fs from 'fs';
-import { body, validationResult } from 'express-validator';
+import { check, CustomValidator, validationResult } from 'express-validator';
 
 import Restaurant, { RestaurantDocument } from '../models/restaurantModel';
 import { CustomRequest } from '../utils/types';
+import { tags as restaurantTags } from '../utils/utils';
 
 export const displayRestaurantForm = (_req: Request, res: Response): void => {
   res.render('restaurantForm');
 };
 
+function coordinatesValidation(value: any): [string, string] {
+  if (value.length !== 2) throw new Error();
+
+  let [lng, lat] = value;
+  lng = Number(lng);
+  lat = Number(lat);
+
+  if (Number.isNaN(lng) || Number.isNaN(lat)) {
+    throw new Error();
+  }
+
+  if (Math.abs(lng) > 180 || Math.abs(lat) > 90) {
+    throw new Error();
+  }
+
+  return value as [string, string];
+}
+
 export const validateRestaurant = [
-  body('*').escape(),
+  check('name').trim().notEmpty().withMessage('Name required'),
+  check('location.address').trim().notEmpty().withMessage('Restaurant address required'),
+  check('location.coordinates').isArray().withMessage('Restaurant coordinates malformed'),
+  check('location.coordinates').custom(coordinatesValidation as unknown as CustomValidator).withMessage('Lng Lat wrong format!'),
 ];
 
 export const checkValidation = (req: Request, res: Response, next: NextFunction): void => {
@@ -26,6 +48,15 @@ export const checkValidation = (req: Request, res: Response, next: NextFunction)
     });
     res.redirect('back');
     return;
+  }
+  next();
+};
+
+export const parseTags = (req: Request, res: Response, next: NextFunction): void => {
+  if (!req.body.tags
+    || req.body.tags[0] === 'Other'
+    || !req.body.tags.every((tag: string) => restaurantTags.includes(tag))) {
+    req.body.tags = ['Other'];
   }
   next();
 };

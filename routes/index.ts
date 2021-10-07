@@ -32,9 +32,10 @@ router.get('/add',
 
 router.post('/add',
   userController.checkAuth,
+  photoController.upload,
   restaurantController.validateRestaurant,
   restaurantController.checkValidation,
-  photoController.upload,
+  restaurantController.parseTags,
   photoController.resize,
   restaurantController.addRestaurant);
 
@@ -56,7 +57,10 @@ router.post('/edit/:id',
   userController.checkAuth,
   restaurantController.checkIfRestaurantExists,
   photoController.upload,
+  restaurantController.validateRestaurant,
+  restaurantController.checkValidation,
   photoController.resize,
+  restaurantController.parseTags,
   restaurantController.editRestaurant);
 
 router.get('*', (_req, res): void => {
