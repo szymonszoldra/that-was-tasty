@@ -1,11 +1,7 @@
-/* eslint-disable newline-per-chained-call */
-// For adding restaurant validation
-
 import {
   Request, Response, NextFunction,
 } from 'express';
 import * as fs from 'fs';
-import { check, CustomValidator, validationResult } from 'express-validator';
 
 import Restaurant, { RestaurantDocument } from '../models/restaurantModel';
 import { CustomRequest } from '../utils/types';
@@ -15,44 +11,14 @@ export const displayRestaurantForm = (_req: Request, res: Response): void => {
   res.render('restaurantForm');
 };
 
-function coordinatesValidation(value: any): [string, string] {
-  if (value.length !== 2) throw new Error();
-
-  let [lng, lat] = value;
-  lng = Number(lng);
-  lat = Number(lat);
-
-  if (Number.isNaN(lng) || Number.isNaN(lat)) {
-    throw new Error();
-  }
-
-  if (Math.abs(lng) > 180 || Math.abs(lat) > 90) {
-    throw new Error();
-  }
-
-  return value as [string, string];
-}
-
-export const validateRestaurant = [
-  check('name').trim().notEmpty().withMessage('Name required'),
-  check('location.address').trim().notEmpty().withMessage('Restaurant address required'),
-  check('location.coordinates').isArray().withMessage('Restaurant coordinates malformed'),
-  check('location.coordinates').custom(coordinatesValidation as unknown as CustomValidator).withMessage('Lng Lat wrong format!'),
-];
-
-export const checkValidation = (req: Request, res: Response, next: NextFunction): void => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    errors.array().forEach((err) => {
-      req.flash('error', err.msg);
-    });
-    res.redirect('back');
-    return;
-  }
-  next();
-};
-
+/**
+ * When only one tag was checked html form treats it as a string instead of an array with the length
+ * of 1. So i have to make sure that req.body.tags is of the array type so the .every() method
+ * works fine. Also when no tag was checked or the tags are malformed by messing with the devtools
+ * default and only tag will be 'Other'.
+ */
 export const parseTags = (req: Request, res: Response, next: NextFunction): void => {
+  if (typeof req.body.tags === 'string') req.body.tags = [req.body.tags];
   if (!req.body.tags
     || req.body.tags[0] === 'Other'
     || !req.body.tags.every((tag: string) => restaurantTags.includes(tag))) {

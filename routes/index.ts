@@ -1,6 +1,7 @@
 import express from 'express';
 import * as userController from '../controllers/userController';
 import * as restaurantController from '../controllers/restaurantController';
+import * as validation from '../validators';
 import * as photoController from '../controllers/photoController';
 
 const router = express.Router();
@@ -11,8 +12,8 @@ router.get('/register',
 
 router.post('/register',
   userController.checkNotAuth,
-  userController.validateRegister,
-  userController.checkValidation,
+  validation.validateRegister,
+  validation.checkValidation,
   userController.registerUser,
   userController.loginUser);
 
@@ -33,8 +34,8 @@ router.get('/add',
 router.post('/add',
   userController.checkAuth,
   photoController.upload,
-  restaurantController.validateRestaurant,
-  restaurantController.checkValidation,
+  validation.validateRestaurant,
+  validation.checkValidation,
   restaurantController.parseTags,
   photoController.resize,
   restaurantController.addRestaurant);
@@ -57,8 +58,8 @@ router.post('/edit/:id',
   userController.checkAuth,
   restaurantController.checkIfRestaurantExists,
   photoController.upload,
-  restaurantController.validateRestaurant,
-  restaurantController.checkValidation,
+  validation.validateRestaurant,
+  validation.checkValidation,
   photoController.resize,
   restaurantController.parseTags,
   restaurantController.editRestaurant);

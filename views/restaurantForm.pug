@@ -4,7 +4,7 @@ block site
   form(action=(restaurant ? `/edit/${restaurant._id}` : '/add') method="POST" enctype="multipart/form-data" class="form")
     .form__group
       label(for="name") Name
-      input(type="text", name="name" value=(restaurant && restaurant.name))
+      input(type="text", name="name" id="name" value=(restaurant && restaurant.name))
     .form__group
       label(for="photo") Photo
       input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
