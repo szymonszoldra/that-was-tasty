@@ -60,7 +60,7 @@ export const findSingleRestaurant = async (
   try {
     const { slug } = req.params;
     // @ts-ignore
-    const restaurant = await Restaurant.findOne({ user: req.user!._id, slug });
+    const restaurant = await Restaurant.findOne({ user: req.user!._id, slug }).populate('meals');
     console.log(restaurant);
     if (!restaurant) throw new Error();
 

@@ -15,12 +15,12 @@
     }
   }
 
-  .tags {
+  .tags, .reviews {
     display: flex;
     justify-content: space-around;
     margin: 20px 0;
 
-    .tag {
+    .tag, .review {
       input {
         margin-right: 5px;
       }

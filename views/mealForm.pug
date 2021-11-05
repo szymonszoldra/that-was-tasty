@@ -1,0 +1,27 @@
+extends index
+
+block site
+  form(action=`/add-meal/${restaurantId}` method="POST" enctype="multipart/form-data" class="form")
+    .form__group 
+      label(for="name") Name
+      input(type="text", name="name")
+    .form__group 
+      label(for="price") Price
+      input(type="number", name="price" step="any") 
+    .form__group 
+      label(for="photo") Photo
+      input(type="file", name="photo" accept="image/gif, image/png, image/jpeg")
+    .form__group
+      label(for="ingredients") Ingredients
+      textarea(name="ingredients", cols="60", rows="10")
+    .form__group
+      label(for="description") Description
+      input(type="text" name="description")
+    ul.reviews
+      - const r = [1, 2, 3, 4, 5]
+      each review in r
+        .review
+          input(type="radio", name="review" value=(review) checked=(review === 5))
+          label(for="review") #{review}
+    input(type="submit", value="Save" class="button") 
+

@@ -1,8 +1,9 @@
 import express from 'express';
 import * as userController from '../controllers/userController';
 import * as restaurantController from '../controllers/restaurantController';
-import * as validation from '../validators';
 import * as photoController from '../controllers/photoController';
+import * as mealController from '../controllers/mealController';
+import * as validation from '../validators';
 
 const router = express.Router();
 
@@ -42,6 +43,18 @@ router.post('/add',
 
 router.get('/', userController.checkAuth, restaurantController.showRestaurants);
 router.get('/restaurants', userController.checkAuth, restaurantController.showRestaurants);
+
+router.get('/add-meal/:id', userController.checkAuth, mealController.displayMealForm);
+router.post('/add-meal/:id',
+  userController.checkAuth,
+  restaurantController.checkIfRestaurantExists,
+  photoController.upload,
+  validation.validateMeal,
+  validation.checkValidation,
+  mealController.parsePrice,
+  mealController.parseReview,
+  photoController.resize,
+  mealController.addMeal);
 
 router.get('/restaurant/:slug',
   userController.checkAuth,

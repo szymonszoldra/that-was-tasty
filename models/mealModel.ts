@@ -4,7 +4,7 @@ export interface MealInput {
   name: string,
   price: number,
   photo: string,
-  ingredients: [string],
+  ingredients: string,
   description: string,
   restaurant: mongoose.Schema.Types.ObjectId
 }
@@ -25,7 +25,7 @@ const MealSchema = new mongoose.Schema<MealDocument>({
   },
   photo: String,
   price: Number,
-  ingredients: [String],
+  ingredients: String,
   restaurant: {
     type: mongoose.Schema.Types.ObjectId,
     required: 'You have to specify the restaurant',

@@ -7,7 +7,7 @@ export const menu = [
 ];
 
 export const restaurantOptions = [
-  { caption: 'Add', action: 'add', icon: 'fa-plus' },
+  { caption: 'Add', action: 'add-meal', icon: 'fa-plus' },
   { caption: 'Edit', action: 'edit', icon: 'fa-pen' },
   { caption: 'Delete', action: 'delete', icon: 'fa-trash' },
 ];
