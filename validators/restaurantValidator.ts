@@ -1,26 +1,16 @@
-import { check, CustomValidator } from 'express-validator';
-
-export function coordinatesValidation(value: any): [string, string] {
-  if (value.length !== 2) throw new Error();
-
-  let [lng, lat] = value;
-  lng = Number(lng);
-  lat = Number(lat);
-
-  if (Number.isNaN(lng) || Number.isNaN(lat)) {
-    throw new Error();
-  }
-
-  if (Math.abs(lng) > 180 || Math.abs(lat) > 90) {
-    throw new Error();
-  }
-
-  return value as [string, string];
-}
+import { check } from 'express-validator';
 
 export const validateRestaurant = [
+  check('name').escape(),
+  check('restaurant').escape(),
+  check('location.address').escape(),
+  check('location.coordinates[0]').escape(),
+  check('location.coordinates[1]').escape(),
   check('name').trim().notEmpty().withMessage('Name required'),
   check('location.address').trim().notEmpty().withMessage('Restaurant address required'),
   check('location.coordinates').isArray().withMessage('Restaurant coordinates malformed'),
-  check('location.coordinates').custom(coordinatesValidation as unknown as CustomValidator).withMessage('Lng Lat wrong format!'),
+  check('location.coordinates[0]').isFloat({ min: -180, max: 180 }).withMessage('Lng malformed'),
+  check('location.coordinates[0]').toFloat(),
+  check('location.coordinates[1]').isFloat({ min: -90, max: 90 }).withMessage('Lat malformed'),
+  check('location.coordinates[1]').toFloat(),
 ];
