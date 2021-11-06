@@ -51,8 +51,6 @@ router.post('/add-meal/:id',
   photoController.upload,
   validation.validateMeal,
   validation.checkValidation,
-  mealController.parsePrice,
-  mealController.parseReview,
   photoController.resize,
   mealController.addMeal);
 
