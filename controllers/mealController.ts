@@ -21,7 +21,7 @@ export const addMeal = async (req: CustomRequest, res: Response): Promise<void> 
 
     await Promise.all([meal.save(), req.restaurant!.save()]);
     req.flash('success', 'Meal added!');
-    res.redirect(`${req.restaurant!.slug}`);
+    res.redirect(`/restaurant/${req.restaurant!.slug}`);
   } catch (error) {
     console.error(error);
   }
