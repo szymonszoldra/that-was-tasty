@@ -29,8 +29,7 @@ block site
             .options
               a(href=`/edit-meal/${meal.id}`) 
                 i.outlined(class="fas fa-pen")
-              a(href=`/delete-meal/${meal.id}`) 
-                i.outlined(class="fas fa-trash")
+              i.outlined.delete-meal(class="fas fa-trash" data-id=meal.id)
             .photo
               img(src=`/photos/${meal.photo}`, alt="meal photo")
             .container

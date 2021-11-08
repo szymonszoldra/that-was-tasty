@@ -20,9 +20,13 @@
       right: 1%;
       display: flex;
 
-      a {
+      a, i {
         text-emphasis: none;
         padding-left: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
 
