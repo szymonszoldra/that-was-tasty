@@ -6,6 +6,11 @@
 
   .restaurant__header {
     display: flex;
+    justify-content: space-between;
+
+    .restaurant__card {
+      margin-left: 0;
+    }
 
     .mapimage {
       height: 100%;

@@ -1,0 +1,76 @@
+.restaurant__meals {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  
+  .meal-card {
+    flex-grow: 1;
+    flex-basis: 45%;
+    display: flex;
+    margin: 20px;
+    box-shadow: 0.5rem 0.5rem 0.5rem rgba(46, 41, 78, 0.55);
+    border-radius: 2%;
+    position: relative;
+
+    .options {
+      position: absolute;
+      top: 5%;
+      right: 1%;
+      display: flex;
+
+      a {
+        text-emphasis: none;
+        padding-left: 10px;
+      }
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      height: 100%;
+      padding: 10px;
+
+      .content {
+        flex-grow: 1;
+        .title {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        
+      }
+
+      .meal-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .stars {
+          list-style-type: none;
+          display: flex;
+          width: 100%;
+        
+          justify-content: flex-end;
+          i {
+            color: gold;
+        }
+      }
+      
+    }
+    }
+
+    .photo {
+      width: 300px;
+      height: 300px;
+      border-radius: 4%;
+
+      img {
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 4%;
+      }
+    }
+  }
+}

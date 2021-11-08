@@ -7,7 +7,6 @@ block site
         .restaurant__card
           .photo-container.single-container
             img(src=`/photos/${restaurant.photo}` class='single-photo')
-          //- h2=restaurant.name
       img.mapimage(src=`/maps/${restaurant.map}`, alt="")
     .restaurant__title
       h1.outlined.big=restaurant.name
@@ -24,9 +23,26 @@ block site
             li 
               a(href=`/${item.action}/${restaurant._id}`) 
                 i(class=`fas ${item.icon}`)
-      .restaurant__meals
-        ul
-          each meal in restaurant.meals
-            pre #{JSON.stringify(meal, null, 2)}
-    
-  pre #{JSON.stringify(restaurant, null, 2)}
+      ul.restaurant__meals
+        each meal in restaurant.meals
+          .meal-card
+            .options
+              a(href=`/edit-meal/${meal.id}`) 
+                i.outlined(class="fas fa-pen")
+              a(href=`/delete-meal/${meal.id}`) 
+                i.outlined(class="fas fa-trash")
+            .photo
+              img(src=`/photos/${meal.photo}`, alt="meal photo")
+            .container
+              .content
+                h2.title.outlined=meal.name
+                p.outlined Ingredients
+                p=meal.ingredients
+                p.outlined Description
+                p=meal.description
+              .meal-footer
+                p.price #{meal.price.toFixed(2)}zł
+                ul.stars
+                  each _ in Array(meal.review)
+                    li
+                      i(class='fas fa-star')
