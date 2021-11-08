@@ -2,8 +2,9 @@ import {
   Request, Response, NextFunction,
 } from 'express';
 import * as fs from 'fs';
-
+import Meal, { MealDocument } from '../models/mealModel';
 import Restaurant, { RestaurantDocument } from '../models/restaurantModel';
+
 import { CustomRequest } from '../utils/types';
 import { tags as restaurantTags } from '../utils/utils';
 
@@ -128,5 +129,27 @@ export const editRestaurant = async (req: CustomRequest, res: Response): Promise
     console.log(error);
     req.flash('error', 'Error while updating restaurant');
     res.redirect('back');
+  }
+};
+
+export const deleteRestaurant = async (req: CustomRequest, res: Response): Promise<void> => {
+  try {
+    const restaurant = await req.restaurant!.populate('meals').execPopulate();
+
+    const promises: any = [];
+    restaurant.meals!.forEach((meal) => {
+      promises.push(Meal.findByIdAndDelete(meal));
+      fs.unlinkSync(`./static/photos/${(meal as unknown as MealDocument).photo}`);
+    });
+
+    await Promise.all(promises);
+
+    fs.unlinkSync(`./static/photos/${restaurant.photo}`);
+    await restaurant.delete();
+
+    req.flash('success', 'Restaurant and all meals deleted!');
+    res.redirect('/restaurants');
+  } catch (error) {
+    console.error(error);
   }
 };

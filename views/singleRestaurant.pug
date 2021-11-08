@@ -19,10 +19,12 @@ block site
                 i(class='fas fa-tags')
                 p=tag
         ul.menu__options
-          each item in utils.restaurantOptions
-            li 
-              a(href=`/${item.action}/${restaurant._id}`) 
-                i(class=`fas ${item.icon}`)
+          li 
+            a(href=`/add-meal/${restaurant._id}`)
+              i(class=`fas fa-plus`)
+            a(href=`/edit/${restaurant._id}`)
+              i(class=`fas fa-pen`)
+            i.delete-restaurant(class=`fas fa-trash` data-id=restaurant._id)
       ul.restaurant__meals
         each meal in restaurant.meals
           .meal-card

@@ -41,6 +41,11 @@ router.post('/add',
   photoController.resize,
   restaurantController.addRestaurant);
 
+router.get('/delete/:id',
+  userController.checkAuth,
+  restaurantController.checkIfRestaurantExists,
+  restaurantController.deleteRestaurant);
+
 router.get('/', userController.checkAuth, restaurantController.showRestaurants);
 router.get('/restaurants', userController.checkAuth, restaurantController.showRestaurants);
 

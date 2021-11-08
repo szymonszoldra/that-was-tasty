@@ -102,11 +102,13 @@
         font-size: 40px;
         margin-left: 30px;
   
-        a {
+        a, i {
           text-decoration: none;
           color: white;
           display: flex;
           text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+          margin-right: 10px;
+          cursor: pointer;
         }
       }
     }

@@ -24,6 +24,18 @@ function autocompleteInit(): void {
 autocompleteInit();
 
 const deleteButtons = document.querySelectorAll('.delete-meal');
+const deleteRestaurantButton = document.querySelector('.delete-restaurant');
+
+if (deleteRestaurantButton) {
+  deleteRestaurantButton.addEventListener('click', (e: Event) => {
+    const confirmation = window.confirm('Are you sure you want to delete this restaurant and all meals?');
+
+    if (confirmation) {
+      // This imitatas <a href=''></a>, fetch doesn't reload page so the flashes are not visible.
+      window.location.replace(`/delete/${(e.target! as HTMLElement).dataset!.id}`);
+    }
+  });
+}
 
 if (deleteButtons.length) {
   deleteButtons.forEach((button) => button.addEventListener('click', () => {
