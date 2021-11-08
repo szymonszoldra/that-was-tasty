@@ -2,6 +2,7 @@ import {
   NextFunction,
   Request, Response,
 } from 'express';
+import fs from 'fs';
 import { CustomRequest } from '../utils/types';
 
 import Meal from '../models/mealModel';
@@ -62,6 +63,8 @@ export const deleteMeal = async (req: CustomRequest, res: Response): Promise<voi
     req.restaurant!.meals = req.restaurant!.meals!.filter((meal) => !meal.equals(req.meal!._id));
     await req.restaurant!.save();
     await Meal.findByIdAndDelete(req.meal!._id);
+
+    fs.unlinkSync(`./static/photos/${req.meal!.photo}`);
 
     req.flash('success', 'Meal deleted!');
     res.redirect('back');
