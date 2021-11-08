@@ -11,6 +11,7 @@ export interface MealInput {
 
 export interface MealDocument extends MealInput, mongoose.Document {
   created: Date
+  _id: mongoose.Types.ObjectId
 }
 
 const MealSchema = new mongoose.Schema<MealDocument>({

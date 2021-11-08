@@ -54,6 +54,11 @@ router.post('/add-meal/:id',
   photoController.resize,
   mealController.addMeal);
 
+router.get('/delete-meal/:id',
+  userController.checkAuth,
+  mealController.checkIfMealExists,
+  mealController.deleteMeal);
+
 router.get('/restaurant/:slug',
   userController.checkAuth,
   restaurantController.findSingleRestaurant,
