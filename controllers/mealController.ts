@@ -8,6 +8,8 @@ import { CustomRequest } from '../utils/types';
 import Meal from '../models/mealModel';
 import Restaurant from '../models/restaurantModel';
 
+import * as logger from '../utils/logger';
+
 export const displayMealForm = (req: Request, res: Response): void => {
   res.render('mealForm', { restaurantId: req.params.id });
 };
@@ -25,7 +27,7 @@ export const addMeal = async (req: CustomRequest, res: Response): Promise<void> 
     req.flash('success', 'Meal added!');
     res.redirect(`/restaurant/${req.restaurant!.slug}`);
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 };
 
@@ -54,7 +56,7 @@ export const checkIfMealExists = async (
     req.restaurant = restaurant;
     next();
   } catch (e) {
-    console.error(e);
+    logger.error(e);
   }
 };
 
@@ -69,6 +71,6 @@ export const deleteMeal = async (req: CustomRequest, res: Response): Promise<voi
     req.flash('success', 'Meal deleted!');
     res.redirect('back');
   } catch (error) {
-    console.log(error);
+    logger.info(error);
   }
 };

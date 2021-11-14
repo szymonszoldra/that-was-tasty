@@ -8,6 +8,8 @@ import Restaurant, { RestaurantDocument } from '../models/restaurantModel';
 import { CustomRequest } from '../utils/types';
 import { tags as restaurantTags } from '../utils/utils';
 
+import * as logger from '../utils/logger';
+
 export const displayRestaurantForm = (_req: Request, res: Response): void => {
   res.render('restaurantForm');
 };
@@ -29,7 +31,7 @@ export const parseTags = (req: Request, res: Response, next: NextFunction): void
 };
 
 export const addRestaurant = async (req: Request, res: Response): Promise<void> => {
-  console.log(req.body);
+  logger.info(req.body);
   try {
     const restaurant = new Restaurant({
       ...req.body,
@@ -38,7 +40,7 @@ export const addRestaurant = async (req: Request, res: Response): Promise<void> 
     });
     await restaurant.save();
   } catch (e) {
-    console.log('ERROR', e);
+    logger.info('ERROR', e);
   }
 
   req.flash('success', 'Restaurant added!');
@@ -51,7 +53,7 @@ export const showRestaurants = async (req: Request, res: Response): Promise<void
     const restaurants = await Restaurant.find({ user: req.user!._id });
     res.render('restaurants', { restaurants });
   } catch (e) {
-    console.log(e);
+    logger.info(e);
   }
 };
 
@@ -62,7 +64,7 @@ export const findSingleRestaurant = async (
     const { slug } = req.params;
     // @ts-ignore
     const restaurant = await Restaurant.findOne({ user: req.user!._id, slug }).populate('meals');
-    console.log(restaurant);
+    logger.info(restaurant);
     if (!restaurant) throw new Error();
 
     req.restaurant = restaurant;
@@ -77,7 +79,7 @@ export const showSingleRestaurant = async (req: CustomRequest, res: Response): P
   try {
     res.render('singleRestaurant', { restaurant: req.restaurant });
   } catch (e) {
-    console.log(e);
+    logger.info(e);
   }
 };
 
@@ -96,7 +98,7 @@ export const checkIfRestaurantExists = async (
     req.restaurant = restaurant;
     next();
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 };
 
@@ -106,13 +108,13 @@ export const displayRestaurantEditForm = (req: CustomRequest, res: Response): vo
 
 export const editRestaurant = async (req: CustomRequest, res: Response): Promise<void> => {
   req.body.location.type = 'Point';
-  console.log(req.body);
+  logger.info(req.body);
 
   if (req.body.photo) {
     try {
       fs.unlinkSync(`./static/photos/${req.restaurant!.photo}`);
     } catch (error) {
-      console.error(`Error while deleting the file ${req.restaurant!.photo}`);
+      logger.error(`Error while deleting the file ${req.restaurant!.photo}`);
     }
   }
 
@@ -126,7 +128,7 @@ export const editRestaurant = async (req: CustomRequest, res: Response): Promise
     ) as RestaurantDocument;
     res.redirect(`/restaurant/${updatedRestaurant.slug}`);
   } catch (error) {
-    console.log(error);
+    logger.info(error);
     req.flash('error', 'Error while updating restaurant');
     res.redirect('back');
   }
@@ -150,6 +152,6 @@ export const deleteRestaurant = async (req: CustomRequest, res: Response): Promi
     req.flash('success', 'Restaurant and all meals deleted!');
     res.redirect('/restaurants');
   } catch (error) {
-    console.error(error);
+    logger.error(error);
   }
 };
