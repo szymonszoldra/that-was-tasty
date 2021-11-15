@@ -59,6 +59,20 @@ router.post('/add-meal/:id',
   photoController.resize,
   mealController.addMeal);
 
+router.get('/edit-meal/:id',
+  userController.checkAuth,
+  mealController.checkIfMealExists,
+  mealController.displayMealEditForm);
+
+router.post('/edit-meal/:id',
+  userController.checkAuth,
+  mealController.checkIfMealExists,
+  photoController.upload,
+  validation.validateMeal,
+  validation.checkValidation,
+  photoController.resize,
+  mealController.editMeal);
+
 router.get('/delete-meal/:id',
   userController.checkAuth,
   mealController.checkIfMealExists,

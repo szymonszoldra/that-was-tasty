@@ -5,13 +5,17 @@ import {
 import fs from 'fs';
 import { CustomRequest } from '../utils/types';
 
-import Meal from '../models/mealModel';
+import Meal, { MealDocument } from '../models/mealModel';
 import Restaurant from '../models/restaurantModel';
 
 import * as logger from '../utils/logger';
 
 export const displayMealForm = (req: Request, res: Response): void => {
   res.render('mealForm', { restaurantId: req.params.id });
+};
+
+export const displayMealEditForm = (req: CustomRequest, res: Response) => {
+  res.render('mealForm', { restaurantId: req.params.id, meal: req.meal });
 };
 
 export const addMeal = async (req: CustomRequest, res: Response): Promise<void> => {
@@ -72,5 +76,23 @@ export const deleteMeal = async (req: CustomRequest, res: Response): Promise<voi
     res.redirect('back');
   } catch (error) {
     logger.info(error);
+  }
+};
+
+export const editMeal = async (req: CustomRequest, res: Response): Promise<void> => {
+  if (req.body.photo) {
+    try {
+      fs.unlinkSync(`./static/photos/${req.meal!.photo}`);
+    } catch (error) {
+      logger.error(`Error while deleting the file ${req.meal!.photo}`);
+    }
+  }
+  try {
+    await Meal.findOneAndUpdate({ _id: req.meal!.id }, req.body, { new: true, runValidators: true });
+    res.redirect(`/restaurant/${req.restaurant!.slug}`);
+  } catch (error) {
+    logger.info(error);
+    req.flash('error', 'Error while updating meal');
+    res.redirect('back');
   }
 };

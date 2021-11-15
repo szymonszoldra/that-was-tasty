@@ -1,27 +1,26 @@
 extends index
 
 block site
-  form(action=`/add-meal/${restaurantId}` method="POST" enctype="multipart/form-data" class="form")
-    .form__group 
+  form(action=`/${meal ? 'edit-meal' : 'add-meal'}/${restaurantId}` method="POST" enctype="multipart/form-data" class="form")
+    .form__group
       label(for="name") Name
-      input(type="text", name="name")
-    .form__group 
+      input(type="text" id="name" name="name" value=(meal && meal.name) )
+    .form__group
       label(for="price") Price
-      input(type="number", name="price" step="any") 
-    .form__group 
+      input(type="number" id="price" name="price" step="any" value=(meal && meal.price))
+    .form__group
       label(for="photo") Photo
-      input(type="file", name="photo" accept="image/gif, image/png, image/jpeg")
+      input(type="file" id="photo" name="photo" accept="image/gif, image/png, image/jpeg")
     .form__group
       label(for="ingredients") Ingredients
-      textarea(name="ingredients", cols="60", rows="10")
+      textarea(name="ingredients" id="ingredients" cols="60", rows="10")=(meal && meal.ingredients)
     .form__group
       label(for="description") Description
-      input(type="text" name="description")
+      input(type="text" id="description" name="description" value=(meal && meal.description))
     ul.reviews
-      - const r = [1, 2, 3, 4, 5]
-      each review in r
+      each review in [1, 2, 3, 4, 5]
         .review
-          input(type="radio", name="review" value=(review) checked=(review === 5))
+          input(type="radio", name="review" value=(review) checked=(meal ? review === meal.review : review === 5))
           label(for="review") #{review}
-    input(type="submit", value="Save" class="button") 
-
+    input(type="submit", value="Save" class="button")
+    pre=(meal && JSON.stringify(meal, null, 2))
