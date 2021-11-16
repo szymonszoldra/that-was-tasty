@@ -85,4 +85,13 @@ RestaurantSchema.pre('findOneAndUpdate', async function (next: mongoose.HookNext
   return next();
 });
 
+RestaurantSchema.statics.getTags = function (userId: string) {
+  return this.aggregate([
+    { $match: { user: userId } },
+    { $unwind: '$tags' },
+    { $group: { _id: '$tags', count: { $sum: 1 } } },
+    { $sort: { count: -1, _id: 1 } },
+  ]);
+};
+
 export default mongoose.model<RestaurantDocument>('Restaurant', RestaurantSchema);

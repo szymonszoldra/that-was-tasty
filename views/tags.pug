@@ -1,0 +1,19 @@
+extends index
+
+block site
+  .tags
+    .restaurant__tags
+      ul
+        each tag in tags
+          li
+            a.outlined(href=`/tags/${tag._id}` class=(tagPath === tag._id ? 'active': ''))
+              i(class='fas fa-tags')
+              p=tag._id
+              p=tag.count
+    .restaurants
+      each restaurant in restaurants
+        a(href=`/restaurant/${restaurant.slug}`)
+          .restaurant__card()
+            .photo-container
+              img(src=`/photos/${restaurant.photo}`)
+            h2.outlined=restaurant.name

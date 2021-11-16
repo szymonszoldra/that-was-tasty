@@ -99,6 +99,10 @@ router.post('/edit/:id',
   restaurantController.parseTags,
   restaurantController.editRestaurant);
 
+router.get('/tags/:tag?',
+  userController.checkAuth,
+  restaurantController.getTags);
+
 router.get('*', (_req, res): void => {
   res.status(404).render('index');
 });

@@ -2,23 +2,9 @@ extends index
 
 block site
   .restaurants
-    //-  temp for development
     each restaurant in restaurants
       a(href=`/restaurant/${restaurant.slug}`)
         .restaurant__card()
           .photo-container
             img(src=`photos/${restaurant.photo}`)
           h2.outlined=restaurant.name
-    each restaurant in restaurants
-      a(href=`/restaurant/${restaurant.slug}`)
-        .restaurant__card()
-          .photo-container
-            img(src=`photos/${restaurant.photo}`)
-          h2.outlined=restaurant.name
-    each restaurant in restaurants
-      a(href=`/restaurant/${restaurant.slug}`)
-        .restaurant__card()
-          .photo-container
-            img(src=`photos/${restaurant.photo}`)
-          h2.outlined=restaurant.name
-    //- pre #{restaurants && JSON.stringify(restaurants, null, 2)}

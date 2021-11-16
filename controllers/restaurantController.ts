@@ -40,7 +40,7 @@ export const addRestaurant = async (req: Request, res: Response): Promise<void> 
     });
     await restaurant.save();
   } catch (e) {
-    logger.info('ERROR', e);
+    logger.error('ERROR', e);
   }
 
   req.flash('success', 'Restaurant added!');
@@ -53,7 +53,7 @@ export const showRestaurants = async (req: Request, res: Response): Promise<void
     const restaurants = await Restaurant.find({ user: req.user!._id });
     res.render('restaurants', { restaurants });
   } catch (e) {
-    logger.info(e);
+    logger.error(e);
   }
 };
 
@@ -79,7 +79,7 @@ export const showSingleRestaurant = async (req: CustomRequest, res: Response): P
   try {
     res.render('singleRestaurant', { restaurant: req.restaurant });
   } catch (e) {
-    logger.info(e);
+    logger.error(e);
   }
 };
 
@@ -128,7 +128,7 @@ export const editRestaurant = async (req: CustomRequest, res: Response): Promise
     ) as RestaurantDocument;
     res.redirect(`/restaurant/${updatedRestaurant.slug}`);
   } catch (error) {
-    logger.info(error);
+    logger.error(error);
     req.flash('error', 'Error while updating restaurant');
     res.redirect('back');
   }
@@ -153,5 +153,29 @@ export const deleteRestaurant = async (req: CustomRequest, res: Response): Promi
     res.redirect('/restaurants');
   } catch (error) {
     logger.error(error);
+  }
+};
+
+export const getTags = async (req: CustomRequest, res: Response): Promise<void> => {
+  try {
+    // @ts-ignore
+    const tagsPromise = Restaurant.getTags(req.user!._id);
+    const restaurantsPromise = Restaurant.find({
+      // @ts-ignore
+      user: req.user!._id,
+      tags: req.params.tag || { $exists: true },
+    });
+
+    const [tags, restaurants] = await Promise.all([tagsPromise, restaurantsPromise]);
+
+    res.render('tags', {
+      tags,
+      restaurants,
+      tagPath: req.params.tag,
+    });
+  } catch (e) {
+    logger.error(e);
+    req.flash('error', 'Something went wrong!');
+    res.redirect('/');
   }
 };
