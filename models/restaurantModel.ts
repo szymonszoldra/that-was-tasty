@@ -17,7 +17,7 @@ export interface RestaurantInput {
 
 export interface RestaurantDocument extends RestaurantInput, mongoose.Document {
   slug: string,
-  map: string,
+  map?: string,
   created: Date
 }
 

@@ -97,6 +97,8 @@ router.post('/edit/:id',
   validation.checkValidation,
   photoController.resize,
   restaurantController.parseTags,
+  restaurantController.checkIfMapShouldBeUpdated,
+  photoController.getStaticMap,
   restaurantController.editRestaurant);
 
 router.get('/tags/:tag?',

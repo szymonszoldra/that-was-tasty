@@ -183,3 +183,21 @@ export const getTags = async (req: CustomRequest, res: Response): Promise<void> 
     res.redirect('/');
   }
 };
+
+export const checkIfMapShouldBeUpdated = async (
+  req: CustomRequest, res: Response, next: NextFunction,
+) => {
+  const [lng, lat] = req.restaurant?.location?.coordinates as [number, number];
+
+  if (req.body.location.coordinates[0] !== lng || req.body.location.coordinates[1] !== lat) {
+    logger.info('Changing static map!');
+    try {
+      fs.unlinkSync(`./static/maps/${req.restaurant?.map}`);
+      req.restaurant!.location!.coordinates = req.body.location.coordinates;
+    } catch (e) {
+      logger.error(e);
+    }
+    req.restaurant!.map = undefined;
+  }
+  next();
+};
