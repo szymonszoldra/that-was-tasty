@@ -1,6 +1,7 @@
 import {
   Request, Response, NextFunction,
 } from 'express';
+import slugify from 'slugify';
 import * as fs from 'fs';
 import Meal, { MealDocument } from '../models/mealModel';
 import Restaurant, { RestaurantDocument } from '../models/restaurantModel';
@@ -121,7 +122,10 @@ export const editRestaurant = async (req: CustomRequest, res: Response): Promise
   try {
     const updatedRestaurant = await Restaurant.findOneAndUpdate(
       { _id: req.restaurant!.id },
-      req.body, {
+      {
+        ...req.body,
+        slug: slugify(req.body.name),
+      }, {
         new: true,
         runValidators: true,
       },
