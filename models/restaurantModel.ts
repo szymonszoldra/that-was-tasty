@@ -94,4 +94,15 @@ RestaurantSchema.statics.getTags = function (userId: string) {
   ]);
 };
 
+RestaurantSchema.statics.getTop = function (userId: string) {
+  return this.aggregate([
+    { $match: { user: userId } },
+    { $lookup: { from: 'meals', localField: '_id', foreignField: 'restaurant', as: 'populatedMeals' } },
+    { $match: { 'populatedMeals.1': { $exists: true } } },
+    { $addFields: { average: { $avg: '$populatedMeals.review' } } },
+    { $sort: { average: -1 } },
+    { $limit: 10 },
+  ]);
+};
+
 export default mongoose.model<RestaurantDocument>('Restaurant', RestaurantSchema);

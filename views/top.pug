@@ -1,0 +1,15 @@
+extends index
+
+block site
+  .top
+    .restaurants
+      each restaurant in restaurants
+        li
+          a(href=`/restaurant/${restaurant.slug}`)
+            .restaurant__card
+              .photo-container
+                img(src=`photos/${restaurant.photo}`)
+              h2.outlined=restaurant.name
+          .summary
+            p.meals Meals you ate: #{restaurant.meals.length}
+            p.average Average #{restaurant.average.toFixed(2)}

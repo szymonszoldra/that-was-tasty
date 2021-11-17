@@ -105,6 +105,10 @@ router.get('/tags/:tag?',
   userController.checkAuth,
   restaurantController.getTags);
 
+router.get('/top',
+  userController.checkAuth,
+  restaurantController.getTop);
+
 router.get('*', (_req, res): void => {
   res.status(404).render('index');
 });

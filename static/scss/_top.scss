@@ -1,0 +1,16 @@
+.top {
+  .restaurants {
+    flex-direction: column;
+
+    li {
+      display: flex;
+      list-style: none;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+    }
+    a {
+      display: flex;
+    }
+  }
+}

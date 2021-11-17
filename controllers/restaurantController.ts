@@ -201,3 +201,13 @@ export const checkIfMapShouldBeUpdated = async (
   }
   next();
 };
+
+export const getTop = async (req: CustomRequest, res: Response) => {
+  try {
+    // @ts-ignore
+    const restaurants = await Restaurant.getTop(req.user._id);
+    res.render('top', { restaurants });
+  } catch (e) {
+    logger.error(e);
+  }
+};
