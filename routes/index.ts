@@ -47,7 +47,7 @@ router.get('/delete/:id',
   restaurantController.deleteRestaurant);
 
 router.get('/', userController.checkAuth, restaurantController.showRestaurants);
-router.get('/restaurants', userController.checkAuth, restaurantController.showRestaurants);
+router.get('/restaurants/:page?', userController.checkAuth, restaurantController.showRestaurants);
 
 router.get('/add-meal/:id', userController.checkAuth, mealController.displayMealForm);
 router.post('/add-meal/:id',

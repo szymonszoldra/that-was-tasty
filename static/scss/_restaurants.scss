@@ -95,13 +95,13 @@
 
     .menu__options {
       justify-content: flex-end;
-  
+
       li {
         display: flex;
         color: white;
         font-size: 40px;
         margin-left: 30px;
-  
+
         a, i {
           text-decoration: none;
           color: white;
@@ -112,7 +112,28 @@
         }
       }
     }
-  
+
   }
- 
+
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  a {
+    display: flex;
+    text-decoration: none;
+
+    span {
+      font-size: 20px;
+      color: black;
+    }
+  }
+
+  span.arrow {
+    display: block;
+    transform: rotate(180deg);
+  }
 }

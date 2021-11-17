@@ -48,11 +48,28 @@ export const addRestaurant = async (req: Request, res: Response): Promise<void> 
   res.redirect('/');
 };
 
-export const showRestaurants = async (req: Request, res: Response): Promise<void> => {
+export const showRestaurants = async (req: CustomRequest, res: Response): Promise<void> => {
   try {
+    // To prevent passing page < 1
+    const page = Math.max(parseInt(req.params.page || '1', 10), 1);
+
+    const RESTAURANTS_PER_PAGE = 6;
+    const toSkip = (page * RESTAURANTS_PER_PAGE) - RESTAURANTS_PER_PAGE;
+
+    const restaurants = Restaurant
+      // @ts-ignore
+      .find({ user: req.user!._id })
+      .skip(toSkip)
+      .limit(RESTAURANTS_PER_PAGE);
+
     // @ts-ignore
-    const restaurants = await Restaurant.find({ user: req.user!._id });
-    res.render('restaurants', { restaurants });
+    const userRestaurantsCount = Restaurant.countDocuments({ user: req.user._id });
+
+    const [restaurantsToShow, count] = await Promise.all([restaurants, userRestaurantsCount]);
+
+    const pages = Math.ceil(count / RESTAURANTS_PER_PAGE);
+
+    res.render('restaurants', { restaurants: restaurantsToShow, page, pages, count });
   } catch (e) {
     logger.error(e);
   }

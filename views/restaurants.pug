@@ -6,5 +6,22 @@ block site
       a(href=`/restaurant/${restaurant.slug}`)
         .restaurant__card()
           .photo-container
-            img(src=`photos/${restaurant.photo}`)
+            img(src=`/photos/${restaurant.photo}`)
           h2.outlined=restaurant.name
+  .pagination
+    .prev
+      if page > 1
+        a(href=`/restaurants/${parseInt(page, 10) - 1}`)
+          span.arrow &#10140;
+          span Prev
+      else
+        span
+    .pages
+      p Page #{page} of #{pages} - #{count} total restaurants
+    .next
+      if page < pages
+        a(href=`/restaurants/${parseInt(page, 10) + 1}`)
+          span Next
+          span &#10140;
+      else
+        span
