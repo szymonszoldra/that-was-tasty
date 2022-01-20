@@ -3,7 +3,6 @@ export const menu = [
   { slug: '/top', caption: 'Top', icon: 'fa-trophy' },
   { slug: '/tags', caption: 'Tags', icon: 'fa-tags' },
   { slug: '/add', caption: 'Add', icon: 'fa-plus' },
-  { slug: '/map', caption: 'Map', icon: 'fa-map-marker-alt' },
 ];
 
 export const restaurantOptions = [
