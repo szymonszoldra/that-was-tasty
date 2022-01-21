@@ -1,8 +1,9 @@
 export const menu = [
-  { slug: '/restaurants', caption: 'Restaurants', icon: 'fa-utensils' },
-  { slug: '/top', caption: 'Top', icon: 'fa-trophy' },
-  { slug: '/tags', caption: 'Tags', icon: 'fa-tags' },
-  { slug: '/add', caption: 'Add', icon: 'fa-plus' },
+  { slug: '/', caption: 'Home', icon: 'logo.png' },
+  { slug: '/restaurants', caption: 'Restaurants', icon: 'restaurants.png' },
+  { slug: '/top', caption: 'Top', icon: 'podium.png' },
+  { slug: '/tags', caption: 'Tags', icon: 'tags.png' },
+  { slug: '/add', caption: 'Add', icon: 'add.png' },
 ];
 
 export const restaurantOptions = [
