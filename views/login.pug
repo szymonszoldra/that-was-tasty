@@ -4,7 +4,7 @@ block site
   form.form(action="/login" method="POST")
     h2 Login
     label(for="email") Email Address
-    input(type="email" name="email")
+    input(type="email" id="email" name="email")
     label(for="password") Password
-    input(type="password" name="password")
+    input(type="password" id="password" name="password")
     input.button(type="submit" value="Log In →")
