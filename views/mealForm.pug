@@ -23,4 +23,3 @@ block site
           input(type="radio", name="review" value=(review) checked=(meal ? review === meal.review : review === 5))
           label(for="review") #{review}
     input(type="submit", value="Save" class="button")
-    pre=(meal && JSON.stringify(meal, null, 2))
