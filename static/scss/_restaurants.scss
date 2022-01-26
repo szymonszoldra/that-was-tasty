@@ -1,24 +1,36 @@
 .restaurants, .restaurant {
   display: flex;
-  margin: 20px 40px;
   justify-content: space-around;
   flex-wrap: wrap;
+
+  .restaurant__title {
+    text-align: center;
+    .big_title {
+      font-size: 25px;
+      text-align: center;
+      margin: 30px 0;
+    }
+  }
 
   .restaurant__header {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
+
 
     .restaurant__card {
       margin-left: 0;
     }
 
     .mapimage {
-      height: 100%;
+      width: 100vw;
     }
 
     .container {
+      width: 100vw;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
+      justify-content: center;
 
       .restaurant__card {
         margin-bottom: 0.5rem;
@@ -27,8 +39,7 @@
   }
   a {
     text-decoration: none;
-    flex-wrap: wrap
-    // flex-basis: 30%;
+    flex-wrap: wrap;
   }
   .restaurant__card {
     display: flex;
@@ -36,26 +47,26 @@
     overflow: hidden;
     box-shadow: 0.5rem 0.5rem 0.5rem rgba(46, 41, 78, 0.55);
     border-radius: 3%;
-    margin: 30px 100px;
+    margin: 30px 0;
 
     .photo-container {
-      height: 460px;
-      width: 300px;
+      height: 430px;
+      width: 350px;
 
       img {
-        height: 500px;
-        width: 300px;
+        height: 450px;
+        width: 350px;
         object-fit: cover;
       }
     }
 
     .single-container {
-      height: 550px;
-      width: 400px;
+      height: 270px;
+      width: 200px;
 
       .single-photo {
-        height: 550px;
-        width: 400px;
+        height: 270px;
+        width: 200px;
       }
     }
   }
@@ -84,7 +95,7 @@
       }
 
       li {
-        font-size: 20px;
+        font-size: 15px;
         margin-right: 10px;
         display: flex;
         i {
@@ -99,8 +110,8 @@
       li {
         display: flex;
         color: white;
-        font-size: 40px;
-        margin-left: 30px;
+        font-size: 20px;
+        margin-left: 15px;
 
         a, i {
           text-decoration: none;
@@ -119,15 +130,21 @@
 
 .pagination {
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  width: 100vw;
+  max-width: 1800px;
+
+  .pages {
+    font-size: 10px;
+  }
 
   a {
     display: flex;
     text-decoration: none;
 
     span {
-      font-size: 20px;
+      font-size: 15px;
       color: black;
     }
   }
@@ -135,5 +152,85 @@
   span.arrow {
     display: block;
     transform: rotate(180deg);
+  }
+}
+
+@include breakpoint(fhd) {
+
+  .restaurants, .restaurant {
+    margin: 20px 40px;
+
+    .restaurant__menu {
+      .restaurant__tags {
+        ul {
+          li {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+
+    .restaurant__title {
+      .big_title {
+        font-size: 70px;
+        text-align: center;
+        margin: 30px 0;
+      }
+    }
+    .restaurant__header {
+      flex-direction: row;
+
+      .container {
+        width: auto;
+
+      }
+      .mapimage {
+        width: auto;
+        height: 100%;
+      }
+    }
+
+    .restaurant__card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0.5rem 0.5rem 0.5rem rgba(46, 41, 78, 0.55);
+      border-radius: 3%;
+      margin: 30px 100px;
+
+      .photo-container {
+        height: 460px;
+        width: 300px;
+
+        img {
+          height: 500px;
+          width: 300px;
+          object-fit: cover;
+        }
+      }
+
+      .single-container {
+        height: 550px;
+        width: 400px;
+
+        .single-photo {
+          height: 550px;
+          width: 400px;
+        }
+      }
+    }
+  }
+
+  .pagination {
+  justify-content: space-between;
+    .pages {
+      font-size: 20px;
+    }
+
+    a {
+      span {
+        font-size: 20px;
+      }
+    }
   }
 }

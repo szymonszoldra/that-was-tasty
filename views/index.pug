@@ -22,13 +22,13 @@ html
           each item in utils.menu
             li
               a(href=item.slug)
-                img.logo(src=`/assets/${item.icon}`)
-                p #{item.caption}
+                img.icon(src=`/assets/${item.icon}`)
+                p.page_name #{item.caption}
         .nav__user
           if user
             a.user_container(href='/logout')
-              img(src='/assets/user.png')
-              p log out
+              img.icon(src='/assets/user.png')
+              p.page_name log out
           else
             a(href='/register') register
             a(href='/login') log in

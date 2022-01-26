@@ -16,6 +16,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+
+      p {
+        font-size: 20px;
+      }
     }
     a {
       display: flex;
@@ -29,6 +33,16 @@
 
     .active {
       color: gold
+    }
+  }
+}
+
+@include breakpoint(fhd) {
+  .tags {
+    .restaurant__tags {
+      li p {
+        font-size: 24px;
+      }
     }
   }
 }

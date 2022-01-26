@@ -9,7 +9,7 @@ block site
             img(src=`/photos/${restaurant.photo}` class='single-photo')
       img.mapimage(src=`/maps/${restaurant.map}`, alt="")
     .restaurant__title
-      h1.outlined.big=restaurant.name
+      h1.outlined.big_title=restaurant.name
     .restaurant__container
       .restaurant__menu
         .restaurant__tags
@@ -19,7 +19,7 @@ block site
                 i(class='fas fa-tags')
                 p=tag
         ul.menu__options
-          li 
+          li
             a(href=`/add-meal/${restaurant._id}`)
               i(class=`fas fa-plus`)
             a(href=`/edit/${restaurant._id}`)
@@ -29,7 +29,7 @@ block site
         each meal in restaurant.meals
           .meal-card
             .options
-              a(href=`/edit-meal/${meal.id}`) 
+              a(href=`/edit-meal/${meal.id}`)
                 i.outlined(class="fas fa-pen")
               i.outlined.delete-meal(class="fas fa-trash" data-id=meal.id)
             .photo

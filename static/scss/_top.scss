@@ -8,9 +8,21 @@
       width: 100%;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
     a {
       display: flex;
     }
   }
 }
+
+@include breakpoint(fhd) {
+.top {
+  .restaurants {
+    li {
+      flex-direction: row;
+    }
+  }
+}
+}
+

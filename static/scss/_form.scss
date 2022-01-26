@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   width: 800px;
+  max-width: 100vw;
+
   //border: 1px solid black;
   padding: 20px;
   margin: 40px auto;
@@ -9,25 +11,28 @@
   &__group {
     display: flex;
     margin: 20px 0;
+    flex-direction: column;
     justify-content: space-between;
     input {
-      width: 500px;
+      width: 90vw;
     }
   }
 
   .tags, .reviews {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     margin: 20px 0;
 
     .tag, .review {
       input {
-        margin-right: 5px;
+        margin: 10px;
       }
     }
   }
 
   .button {
+    margin-top: 20px;
     background-color: royalblue;
     color: white;
     width: 80px;
@@ -38,6 +43,17 @@
     align-self: center;
     &:hover {
       background-color: lighten(royalblue, 5%);
+    }
+  }
+}
+
+@include breakpoint(fhd) {
+  .form {
+    &__group {
+      flex-direction: row;
+      input {
+        width: 500px;
+      }
     }
   }
 }

@@ -3,16 +3,19 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  
+  flex-direction: column;
+
   .meal-card {
     flex-grow: 1;
     flex-basis: 45%;
     display: flex;
-    margin: 20px;
+    margin: 20px auto;
     box-shadow: 0.5rem 0.5rem 0.5rem rgba(46, 41, 78, 0.55);
     border-radius: 2%;
     position: relative;
-    max-width: 50%;
+
+    flex-direction: column;
+    width: 300px;
 
     .options {
       position: absolute;
@@ -36,6 +39,7 @@
       flex-grow: 1;
       height: 100%;
       padding: 10px;
+      width: 300px;
 
       .content {
         flex-grow: 1;
@@ -43,7 +47,7 @@
           text-align: center;
           margin-bottom: 10px;
         }
-        
+
       }
 
       .meal-footer {
@@ -55,13 +59,13 @@
           list-style-type: none;
           display: flex;
           width: 100%;
-        
+
           justify-content: flex-end;
           i {
             color: gold;
         }
       }
-      
+
     }
     }
 
@@ -75,6 +79,32 @@
         height: 300px;
         object-fit: cover;
         border-radius: 4%;
+      }
+    }
+  }
+}
+
+@include breakpoint(fhd) {
+  .restaurant__meals {
+    flex-direction: row;
+    .meal-card {
+      flex-direction: row;
+      max-width: 50%;
+      width: auto;
+      margin: 20px;
+
+      .photo {
+        width: 300px;
+        height: 300px;
+        border-radius: 4%;
+
+        img {
+          width: 300px;
+          height: 300px;
+          object-fit: cover;
+          border-radius: 4%;
+        }
+
       }
     }
   }

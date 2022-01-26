@@ -3,11 +3,21 @@
 
   .flash {
     width: 600px;
+    max-width: 100vw;
     border: 5px solid;
     margin: 3px auto;
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    border-radius: 10px;
+
+    button {
+      background: none;
+      font-size: 24px;
+      border: none;
+      margin-left: 20px;
+    }
+
     &--error {
       border-color: red;
     }
