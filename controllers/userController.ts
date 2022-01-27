@@ -24,7 +24,7 @@ export const registerUser = async (
 
   if (emailTaken) {
     req.flash('error', 'Email taken!');
-    res.redirect('back');
+    res.redirect('/register');
     return;
   }
   const user = new User({ email, name });

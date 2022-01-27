@@ -45,8 +45,7 @@ describe('registration', () => {
   });
 
   it('can\'t create user account when email is taken', async () => {
-    await agent.post('/register').send(mockUser);
-    const res = await agent.get('/');
+    const res = await agent.post('/register').send(mockUser).redirects(1);
 
     expect(res.text).toContain('Email taken!');
 
@@ -55,11 +54,12 @@ describe('registration', () => {
   });
 
   it('can\'t create user when passwords don\'t match', async () => {
+    await agent.get('/register');
     await agent.post('/register').send({
       ...mockUser, 'password-confirm': 'otherPassword',
     });
-    const res = await agent.get('/');
 
+    const res = await agent.get('/register');
     expect(res.text).toContain('Passwords don\'t match!');
   });
 });
@@ -72,11 +72,11 @@ describe('authentication', () => {
   });
 
   it('can\'t log in with invalid credentials', async () => {
-    await agent.post('/login').send({
+    const res = await agent.post('/login').send({
       email: 'blabla@gmail.com',
       password: 'blabla',
-    });
-    const res = await agent.get('/');
+    }).redirects(1);
+
     expect(res.text).toContain('Could not log in! Check credentials!');
   });
 });

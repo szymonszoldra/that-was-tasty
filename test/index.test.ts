@@ -55,25 +55,25 @@ describe('routing', () => {
 
 describe('navbar', () => {
   it('shows register and log in when not logged in', async () => {
-    const response = await agent.get('/');
+    const response = await agent.get('/').redirects(1);
     expect(response.text).toContain('register');
     expect(response.text).toContain('log in');
   });
 
   it('doesn\'t show log out when not logged in', async () => {
-    const response = await agent.get('/');
+    const response = await agent.get('/').redirects(1);
     expect(response.text).not.toContain('log out');
   });
 
   it('shows log out when logged in', async () => {
     await mockLogIn();
-    const response = await agent.get('/');
+    const response = await agent.get('/').redirects(1);
     expect(response.text).toContain('log out');
   });
 
   it('doesn\'t show log out when not logged in', async () => {
     await mockLogIn();
-    const response = await agent.get('/');
+    const response = await agent.get('/').redirects(1);
     expect(response.text).not.toContain('register');
     expect(response.text).not.toContain('log in');
   });
